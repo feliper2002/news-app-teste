@@ -18,7 +18,7 @@ class AppWidget extends StatelessWidget {
                 stream: FirebaseAuth.instance.authStateChanges(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
-                    return const AuthPage();
+                    return AuthPage();
                   } else if (snapshot.connectionState ==
                       ConnectionState.waiting) {
                     return const Center(
