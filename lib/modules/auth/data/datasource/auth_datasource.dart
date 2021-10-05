@@ -5,6 +5,7 @@ import 'package:news_app/core/error/failure.dart';
 abstract class AuthDatasource {
   Future<User> register(
       String? email, String? password, String? passwordConfirmation);
+  Future<User> login(String? email, String? password);
 }
 
 class AuthDatasourceNews implements AuthDatasource {
@@ -23,6 +24,23 @@ class AuthDatasourceNews implements AuthDatasource {
     } catch (e) {
       throw ServerFailure(
           'Erro no servidor. Não foi possível realizar o cadastro de usuário.');
+    }
+  }
+
+  @override
+  Future<User> login(String? email, String? password) async {
+    final _auth = FirebaseAuth.instance;
+
+    try {
+      final usuario = await _auth.signInWithEmailAndPassword(
+          email: email!, password: password!);
+      return usuario.user!;
+    } on FirebaseAuthException catch (error) {
+      Modular.to.pop();
+      throw InvalidCredentials(error.message);
+    } catch (e) {
+      throw ServerFailure(
+          'Erro no servidor. Não foi possível efetuar o login do usuário.');
     }
   }
 }
