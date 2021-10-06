@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NewsContainer extends StatelessWidget {
   final String? title;
-  final String? date;
+  final Timestamp? date;
   final String? body;
   final String? author;
   final int? views;
@@ -42,9 +45,15 @@ class NewsContainer extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Row(
               children: [
-                Text('Título news'),
+                Text(
+                  '$title',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 const Spacer(),
-                Text('data news'),
+                Text(DateFormat.MMMd().format(date!.toDate())),
               ],
             ),
           ),
@@ -53,6 +62,10 @@ class NewsContainer extends StatelessWidget {
             indent: 10,
             endIndent: 10,
             color: Colors.grey,
+          ),
+          Container(
+            height: size.height * .083,
+            child: Text(body!),
           ),
           const Spacer(),
           const Divider(
@@ -68,7 +81,7 @@ class NewsContainer extends StatelessWidget {
                 Row(
                   children: [
                     Icon(Icons.person_pin_outlined),
-                    Text('Autor news'),
+                    Text('$author'),
                   ],
                 ),
                 const Spacer(),
@@ -78,7 +91,7 @@ class NewsContainer extends StatelessWidget {
                       children: [
                         Icon(Icons.visibility),
                         const SizedBox(width: 3),
-                        Text('20'),
+                        Text('$views'),
                       ],
                     ),
                     const SizedBox(width: 8),
@@ -86,7 +99,7 @@ class NewsContainer extends StatelessWidget {
                       children: [
                         Icon(Icons.message),
                         const SizedBox(width: 3),
-                        Text('10'),
+                        Text('$comments'),
                       ],
                     ),
                     const SizedBox(width: 8),
@@ -94,7 +107,7 @@ class NewsContainer extends StatelessWidget {
                       children: [
                         Icon(Icons.favorite),
                         const SizedBox(width: 3),
-                        Text('5'),
+                        Text('$likes'),
                       ],
                     ),
                   ],
