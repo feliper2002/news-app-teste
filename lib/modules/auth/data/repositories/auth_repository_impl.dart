@@ -10,11 +10,11 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this.datasource);
 
   @override
-  Future<Either<Failure, User>> register(
+  Future<Either<Failure, User>> register(String? firstName, String? lastName,
       String? email, String? password, String? passwordConfirmation) async {
     try {
-      final response =
-          await datasource.register(email, password, passwordConfirmation);
+      final response = await datasource.register(
+          firstName, lastName, email, password, passwordConfirmation);
       return Right(response);
     } on Failure catch (error) {
       return Left(error);

@@ -173,14 +173,20 @@ abstract class _RegisterControllerBase with Store {
   }
 
   Future<User> register() async {
-    final response =
-        await _registerUsecase(email, password, passwordConfirmation);
+    final response = await _registerUsecase(
+        firstName, lastName, email, password, passwordConfirmation);
 
     User? usuarioAuth;
 
     response.fold((exception) {
       if (exception is UnprocessableEntityFailure) {
         if (exception.errors.containsKey('e-mail')) {
+          print(exception.message);
+        }
+        if (exception.errors.containsKey('first-name')) {
+          print(exception.message);
+        }
+        if (exception.errors.containsKey('last-name')) {
           print(exception.message);
         }
         if (exception.errors.containsKey('password')) {

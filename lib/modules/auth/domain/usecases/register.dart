@@ -5,7 +5,7 @@ import 'package:news_app/modules/auth/domain/repositories/auth_repository.dart';
 import 'package:news_app/shared/classes/error_message.dart';
 
 abstract class Register {
-  Future<Either<Failure, User>> call(
+  Future<Either<Failure, User>> call(String? firstName, String? lastName,
       String? email, String? password, String? passwordConfirmation);
 }
 
@@ -15,9 +15,19 @@ class RegisterImpl implements Register {
   RegisterImpl(this.repository);
 
   @override
-  Future<Either<Failure, User>> call(
+  Future<Either<Failure, User>> call(String? firstName, String? lastName,
       String? email, String? password, String? passwordConfirmation) async {
     Map<String, dynamic> errors = {};
+
+    if (firstName!.isEmpty) {
+      errors.putIfAbsent(
+          'first-name', () => 'O campo `Primeiro Nome` é obrigatório!');
+    }
+
+    if (lastName!.isEmpty) {
+      errors.putIfAbsent(
+          'last-name', () => 'O campo `Sobrenome` é obrigatório!');
+    }
 
     if (email!.isEmpty) {
       errors.putIfAbsent('email', () => 'O campo de e-mail é obrigatório!');
@@ -48,6 +58,7 @@ class RegisterImpl implements Register {
       );
     }
 
-    return await repository.register(email, password, passwordConfirmation);
+    return await repository.register(
+        firstName, lastName, email, password, passwordConfirmation);
   }
 }
