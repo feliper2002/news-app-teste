@@ -3,20 +3,21 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:news_app/core/error/failure.dart';
 
 abstract class AuthDatasource {
-  Future<User> register(
-      String? email, String? password, String? passwordConfirmation);
+  Future<User> register(String? firstName, String? lastName, String? email,
+      String? password, String? passwordConfirmation);
   Future<User> login(String? email, String? password);
 }
 
 class AuthDatasourceNews implements AuthDatasource {
   @override
-  Future<User> register(
-      String? email, String? password, String? passwordConfirmation) async {
+  Future<User> register(String? firstName, String? lastName, String? email,
+      String? password, String? passwordConfirmation) async {
     final _auth = FirebaseAuth.instance;
 
     try {
       final usuario = await _auth.createUserWithEmailAndPassword(
           email: email!, password: password!);
+      await usuario.user!.updateDisplayName('$firstName $lastName');
       return usuario.user!;
     } on FirebaseAuthException catch (error) {
       Modular.to.pop();
