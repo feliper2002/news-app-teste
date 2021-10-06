@@ -153,48 +153,6 @@ class UserPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Telefone',
-                          style: TextStyle(
-                            color: Colors.grey[800],
-                            fontWeight: FontWeight.w700,
-                            fontSize: 18,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              user != null && user!.phoneNumber != null
-                                  ? user!.phoneNumber!
-                                  : 'Não configurado',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 14,
-                              ),
-                            ),
-                            const Spacer(),
-                            TextButton(
-                              onPressed: () async {
-                                await Modular.to.pushNamed('/user/update_phone',
-                                    arguments: user);
-                              },
-                              child: Text(
-                                  user != null && user!.phoneNumber != null
-                                      ? 'Alterar'
-                                      : 'Configurar'),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
                 ],
               ),
             ),
