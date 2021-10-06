@@ -164,8 +164,10 @@ class UserPage extends StatelessWidget {
                             const Spacer(),
                             TextButton(
                               onPressed: () {},
-                              child:
-                                  Text(user != null ? 'Alterar' : 'Configurar'),
+                              child: Text(
+                                  user != null && user!.phoneNumber != null
+                                      ? 'Alterar'
+                                      : 'Configurar'),
                             ),
                           ],
                         ),
@@ -178,29 +180,37 @@ class UserPage extends StatelessWidget {
             const Spacer(),
             Visibility(
               visible: user != null,
-              child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 20),
-                width: 155,
-                child: OutlinedButton(
-                  onPressed: () {},
-                  child: Row(
-                    children: [
-                      Icon(Icons.delete, color: Colors.white),
-                      const SizedBox(width: 6),
-                      Text(
-                        'Deletar conta',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 15,
-                        ),
+              child: Column(
+                children: [
+                  CustomButton(
+                    text: 'Sair da conta',
+                    onPressed: () {},
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 20, top: 6),
+                    width: 155,
+                    child: OutlinedButton(
+                      onPressed: () {},
+                      child: Row(
+                        children: [
+                          Icon(Icons.delete, color: Colors.white),
+                          const SizedBox(width: 6),
+                          Text(
+                            'Deletar conta',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.red),
+                      ),
+                    ),
                   ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.red),
-                  ),
-                ),
+                ],
               ),
             ),
           ],
