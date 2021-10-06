@@ -11,8 +11,16 @@ class UserPage extends StatelessWidget {
   const UserPage({Key? key, this.user}) : super(key: key);
 
   String? get iniciais {
-    final nome = user!.displayName!.split(' ');
-    return ('${nome[0][0].toUpperCase()}${nome[1][0].toUpperCase()}');
+    String? nome;
+    if (user != null) {
+      if (user!.displayName!.contains(' ')) {
+        final lista = user!.displayName!.split(' ');
+        nome = ('${lista[0][0].toUpperCase()}${lista[1][0].toUpperCase()}');
+      } else {
+        nome = user!.displayName!;
+      }
+      return nome;
+    }
   }
 
   @override
