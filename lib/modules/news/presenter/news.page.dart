@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:news_app/modules/news/presenter/widgets/news_container.dart';
 import 'package:news_app/shared/theme/colors.dart';
+
+import 'events.page.dart';
 
 class NewsPage extends StatelessWidget {
   const NewsPage({Key? key}) : super(key: key);
@@ -14,7 +17,9 @@ class NewsPage extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(Icons.person),
-            onPressed: () {},
+            onPressed: () async {
+              await Modular.to.pushNamed('/user');
+            },
           ),
           centerTitle: true,
           title: const Text('News APP', style: TextStyle(color: Colors.white)),
@@ -41,7 +46,7 @@ class NewsPage extends StatelessWidget {
                 return NewsContainer();
               },
             ),
-            Container(),
+            EventsPage(),
           ],
         ),
       ),
