@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:news_app/core/error/failure.dart';
@@ -203,7 +204,7 @@ abstract class _RegisterControllerBase with Store {
     }, (user) async {
       usuarioAuth = user;
       if (usuarioAuth != null) {
-        await Modular.to.popAndPushNamed('/news');
+        await Modular.to.pushNamedAndRemoveUntil('/', ModalRoute.withName('/'));
       }
     });
     return usuarioAuth!;
