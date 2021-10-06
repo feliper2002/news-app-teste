@@ -117,7 +117,7 @@ abstract class _AuthControllerBase with Store {
     }, (user) async {
       usuarioAuth = user;
       if (usuarioAuth != null) {
-        await Modular.to.popAndPushNamed('/news');
+        await Modular.to.popAndPushNamed('/news', arguments: usuarioAuth);
       }
     });
     return usuarioAuth!;

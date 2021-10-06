@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:news_app/modules/news/presenter/controllers/news_controller.dart';
@@ -8,7 +9,8 @@ import 'package:news_app/shared/theme/colors.dart';
 import 'events.page.dart';
 
 class NewsPage extends StatelessWidget {
-  NewsPage({Key? key}) : super(key: key);
+  User? user;
+  NewsPage({Key? key, this.user}) : super(key: key);
 
   final controller = Modular.get<NewsController>();
 
@@ -20,7 +22,7 @@ class NewsPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: const Icon(Icons.person),
+            icon: Icon(user != null ? Icons.person : Icons.person_outline),
             onPressed: () async {
               await Modular.to.pushNamed('/user');
             },

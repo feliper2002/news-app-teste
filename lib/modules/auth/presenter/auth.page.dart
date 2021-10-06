@@ -11,7 +11,6 @@ class AuthPage extends StatelessWidget {
   AuthPage({Key? key}) : super(key: key);
 
   final controller = Modular.get<AuthController>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +42,7 @@ class AuthPage extends StatelessWidget {
               Observer(builder: (_) {
                 return CustomTextField(
                   labelText: 'Senha',
+                  obscureText: true,
                   errorText: controller.changedPassword!
                       ? controller.validatePassword()
                       : null,
