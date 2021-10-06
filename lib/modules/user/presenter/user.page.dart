@@ -2,13 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:news_app/modules/user/controller/user_controller.dart';
 import 'package:news_app/shared/theme/colors.dart';
 import 'package:news_app/shared/widgets/custom_button.dart';
 
 class UserPage extends StatelessWidget {
   final User? user;
-  const UserPage({Key? key, this.user}) : super(key: key);
+  UserPage({Key? key, this.user}) : super(key: key);
 
   String? get iniciais {
     String? nome;
@@ -22,6 +24,8 @@ class UserPage extends StatelessWidget {
       return nome;
     }
   }
+
+  final controller = Modular.get<UserController>();
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +73,8 @@ class UserPage extends StatelessWidget {
                   visible: user == null,
                   child: CustomButton(
                     text: 'Fazer Login',
-                    onPressed: () async {
-                      await Modular.to.pushNamedAndRemoveUntil(
-                          '/', ModalRoute.withName('/'));
+                    onPressed: () {
+                      Modular.to.navigate('/');
                     },
                   ),
                 ),
@@ -107,7 +110,10 @@ class UserPage extends StatelessWidget {
                             ),
                             const Spacer(),
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                await Modular.to.pushNamed('/user/update_email',
+                                    arguments: user);
+                              },
                               child: Text('Alterar'),
                             ),
                           ],
@@ -135,7 +141,10 @@ class UserPage extends StatelessWidget {
                               Icon(Icons.password, color: Colors.grey),
                             const Spacer(),
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                await Modular.to
+                                    .pushNamed('/user/update_password');
+                              },
                               child: Text('Alterar'),
                             ),
                           ],
@@ -171,7 +180,10 @@ class UserPage extends StatelessWidget {
                             ),
                             const Spacer(),
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                await Modular.to
+                                    .pushNamed('/user/update_phone');
+                              },
                               child: Text(
                                   user != null && user!.phoneNumber != null
                                       ? 'Alterar'
@@ -192,7 +204,9 @@ class UserPage extends StatelessWidget {
                 children: [
                   CustomButton(
                     text: 'Sair da conta',
-                    onPressed: () {},
+                    onPressed: () {
+                      Modular.to.navigate('/');
+                    },
                   ),
                   Container(
                     margin: const EdgeInsets.only(bottom: 20, top: 6),

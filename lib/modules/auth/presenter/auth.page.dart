@@ -16,6 +16,7 @@ class AuthPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        leading: null,
         title: const Text('Login', style: TextStyle(color: Colors.white)),
         backgroundColor: AppColors.mainColor,
       ),
