@@ -1,12 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:news_app/modules/news/presenter/controllers/news_controller.dart';
 import 'package:news_app/modules/news/presenter/widgets/news_container.dart';
 import 'package:news_app/shared/theme/colors.dart';
 
 import 'events.page.dart';
 
 class NewsPage extends StatelessWidget {
-  const NewsPage({Key? key}) : super(key: key);
+  NewsPage({Key? key}) : super(key: key);
+
+  final controller = Modular.get<NewsController>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +43,33 @@ class NewsPage extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              itemCount: 10,
-              itemBuilder: (_, index) {
-                return NewsContainer();
-              },
-            ),
+            StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                stream: controller.listNews(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (_, index) {
+                        final docs = snapshot.data!.docs[index].data();
+                        return NewsContainer(
+                          title: docs['title'],
+                          date: docs['date'],
+                          body: docs['body'],
+                          author: docs['author'],
+                          views: docs['views'],
+                          comments: docs['comments'],
+                          likes: docs['likes'],
+                        );
+                      },
+                    );
+                  } else {
+                    return Center(
+                      child:
+                          CircularProgressIndicator(color: AppColors.mainColor),
+                    );
+                  }
+                }),
             EventsPage(),
           ],
         ),
