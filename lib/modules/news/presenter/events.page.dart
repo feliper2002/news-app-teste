@@ -16,7 +16,7 @@ class EventsPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(Icons.warning_amber, color: Colors.red, size: 90),
+            const Icon(Icons.warning_amber, color: Colors.red, size: 90),
             Text.rich(
               TextSpan(
                 text: 'OPA!!\n',

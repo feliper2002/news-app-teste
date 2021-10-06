@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:news_app/modules/user/controller/user_controller.dart';
 import 'package:news_app/shared/theme/colors.dart';
@@ -19,7 +18,7 @@ class UserPage extends StatelessWidget {
         final lista = user!.displayName!.split(' ');
         nome = ('${lista[0][0].toUpperCase()}${lista[1][0].toUpperCase()}');
       } else {
-        nome = user!.displayName!;
+        nome = user!.displayName![0];
       }
       return nome;
     }
@@ -34,7 +33,7 @@ class UserPage extends StatelessWidget {
         backgroundColor: AppColors.mainColor,
         title: Text(
             user == null ? 'Usuário (deslogado)' : 'Informações de Usuário',
-            style: TextStyle(color: Colors.white)),
+            style: const TextStyle(color: Colors.white)),
       ),
       body: Container(
         alignment: Alignment.center,
@@ -49,10 +48,10 @@ class UserPage extends StatelessWidget {
                   radius: 70,
                   child: Center(
                     child: user == null
-                        ? Icon(Icons.person_outline, size: 56)
+                        ? const Icon(Icons.person_outline, size: 56)
                         : Text(
                             iniciais!,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 38,
                               fontWeight: FontWeight.w500,
                             ),
@@ -102,7 +101,7 @@ class UserPage extends StatelessWidget {
                           children: [
                             Text(
                               user != null ? user!.email! : 'Não configurado',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.grey,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 14,
@@ -114,7 +113,7 @@ class UserPage extends StatelessWidget {
                                 await Modular.to.pushNamed('/user/update_email',
                                     arguments: user);
                               },
-                              child: Text('Alterar'),
+                              child: const Text('Alterar'),
                             ),
                           ],
                         ),
@@ -173,9 +172,9 @@ class UserPage extends StatelessWidget {
                     child: OutlinedButton(
                       onPressed: () {},
                       child: Row(
-                        children: [
+                        children: const [
                           Icon(Icons.delete, color: Colors.white),
-                          const SizedBox(width: 6),
+                          SizedBox(width: 6),
                           Text(
                             'Deletar conta',
                             style: TextStyle(

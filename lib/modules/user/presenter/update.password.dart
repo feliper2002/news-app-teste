@@ -23,7 +23,8 @@ class UpdatePassword extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.mainColor,
-          title: Text('Atualizar Senha', style: TextStyle(color: Colors.white)),
+          title: const Text('Atualizar Senha',
+              style: TextStyle(color: Colors.white)),
         ),
         body: Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 30),
@@ -32,7 +33,7 @@ class UpdatePassword extends StatelessWidget {
               Observer(builder: (_) {
                 return CustomTextField(
                   labelText: 'Nova senha',
-                  prefixIcon: Icon(Icons.mail_outline),
+                  prefixIcon: const Icon(Icons.mail_outline),
                   onChanged: controller.setPassword,
                   obscureText: true,
                   errorText: controller.changedPassword!

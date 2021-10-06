@@ -23,8 +23,8 @@ class UpdateEmail extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.mainColor,
-          title:
-              Text('Atualizar E-mail', style: TextStyle(color: Colors.white)),
+          title: const Text('Atualizar E-mail',
+              style: TextStyle(color: Colors.white)),
         ),
         body: Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 30),
@@ -33,7 +33,7 @@ class UpdateEmail extends StatelessWidget {
               Observer(builder: (_) {
                 return CustomTextField(
                   labelText: 'Novo E-mail',
-                  prefixIcon: Icon(Icons.mail_outline),
+                  prefixIcon: const Icon(Icons.mail_outline),
                   onChanged: controller.setEmail,
                   errorText: controller.changedEmail!
                       ? controller.validateEmail()

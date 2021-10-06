@@ -47,7 +47,7 @@ class NewsContainer extends StatelessWidget {
               children: [
                 Text(
                   '$title',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -81,7 +81,7 @@ class NewsContainer extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.person_pin_outlined),
+                    const Icon(Icons.person_pin_outlined),
                     Text('$author'),
                   ],
                 ),
@@ -90,7 +90,7 @@ class NewsContainer extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.visibility),
+                        const Icon(Icons.visibility),
                         const SizedBox(width: 3),
                         Text('$views'),
                       ],
@@ -98,7 +98,7 @@ class NewsContainer extends StatelessWidget {
                     const SizedBox(width: 8),
                     Row(
                       children: [
-                        Icon(Icons.message),
+                        const Icon(Icons.message),
                         const SizedBox(width: 3),
                         Text('$comments'),
                       ],
@@ -106,7 +106,7 @@ class NewsContainer extends StatelessWidget {
                     const SizedBox(width: 8),
                     Row(
                       children: [
-                        Icon(Icons.favorite),
+                        const Icon(Icons.favorite),
                         const SizedBox(width: 3),
                         Text('$likes'),
                       ],
