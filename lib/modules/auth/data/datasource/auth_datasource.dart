@@ -36,7 +36,7 @@ class AuthDatasourceNews implements AuthDatasource {
           email: email!, password: password!);
       return usuario.user!;
     } on FirebaseAuthException catch (error) {
-      Modular.to.pop();
+      // Modular.to.pop();
       throw InvalidCredentials(error.message);
     } catch (e) {
       throw ServerFailure(

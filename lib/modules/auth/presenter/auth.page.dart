@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:news_app/modules/auth/presenter/controllers/auth_controller.dart';
 import 'package:news_app/shared/theme/colors.dart';
@@ -10,7 +11,6 @@ class AuthPage extends StatelessWidget {
   AuthPage({Key? key}) : super(key: key);
 
   final controller = Modular.get<AuthController>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,32 +28,62 @@ class AuthPage extends StatelessWidget {
             children: [
               _appLogo(),
               const SizedBox(height: 8),
-              CustomTextField(
-                labelText: 'E-mail',
-                prefixIcon: const Icon(Icons.mail),
-                onChanged: controller.setEmail,
-              ),
+              Observer(builder: (_) {
+                return CustomTextField(
+                  labelText: 'E-mail',
+                  errorText: controller.changedEmail!
+                      ? controller.validateEmail()
+                      : null,
+                  prefixIcon: const Icon(Icons.mail),
+                  onChanged: controller.setEmail,
+                );
+              }),
               const SizedBox(height: 16),
-              CustomTextField(
-                labelText: 'Senha',
-                prefixIcon: const Icon(Icons.password),
-                onChanged: controller.setPassword,
-              ),
+              Observer(builder: (_) {
+                return CustomTextField(
+                  labelText: 'Senha',
+                  obscureText: true,
+                  errorText: controller.changedPassword!
+                      ? controller.validatePassword()
+                      : null,
+                  prefixIcon: const Icon(Icons.password),
+                  onChanged: controller.setPassword,
+                );
+              }),
               const SizedBox(height: 20),
-              CustomButton(
-                onPressed: () async {
-                  await Modular.to.pushNamed('/news');
-                },
-                text: 'Login',
-              ),
+              Observer(builder: (_) {
+                return CustomButton(
+                  enabled: controller.validateLoginFields()!,
+                  onPressed: () async {
+                    await controller.login();
+                  },
+                  text: 'Login',
+                );
+              }),
               const SizedBox(height: 20),
               _notRegistered(),
               const SizedBox(height: 16),
               CustomButton(
+                enabled: true,
                 onPressed: () async {
-                  await Modular.to.pushNamed('/auth/register');
+                  controller.clearAllFields();
+                  await Modular.to.pushNamed('/register');
                 },
                 text: 'Cadastrar',
+              ),
+              const SizedBox(height: 16),
+              TextButton(
+                onPressed: () async {
+                  controller.clearAllFields();
+                  await Modular.to.popAndPushNamed('/news');
+                },
+                child: Text(
+                  'Continuar sem autenticação >>>',
+                  style: TextStyle(
+                      color: AppColors.mainColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w900),
+                ),
               ),
             ],
           ),
