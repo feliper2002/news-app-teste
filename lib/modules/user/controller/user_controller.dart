@@ -80,9 +80,28 @@ abstract class _UserControllerBase with Store {
     if (password != null) {
       if (password!.isEmpty) {
         return 'Este campo é obrigatório!';
+      } else if (password!.length < 8) {
+        return 'Senha muito pequena!';
       }
       return null;
     }
     return 'Valor nulo';
+  }
+
+  String? validatePasswordConfirmation() {
+    if (passwordConfirmation != null) {
+      if (passwordConfirmation!.isEmpty) {
+        return 'Este campo é obrigatório!';
+      } else if (passwordConfirmation!.compareTo(password!) != 0) {
+        return 'Confirmação de senha está diferenta da senha!';
+      }
+      return null;
+    }
+    return 'Valor nulo';
+  }
+
+  bool? validatePasswordUpdate() {
+    return (validatePassword() == null &&
+        validatePasswordConfirmation() == null);
   }
 }

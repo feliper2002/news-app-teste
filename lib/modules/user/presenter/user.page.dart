@@ -142,8 +142,9 @@ class UserPage extends StatelessWidget {
                             const Spacer(),
                             TextButton(
                               onPressed: () async {
-                                await Modular.to
-                                    .pushNamed('/user/update_password');
+                                await Modular.to.pushNamed(
+                                    '/user/update_password',
+                                    arguments: user);
                               },
                               child: Text('Alterar'),
                             ),
@@ -181,8 +182,8 @@ class UserPage extends StatelessWidget {
                             const Spacer(),
                             TextButton(
                               onPressed: () async {
-                                await Modular.to
-                                    .pushNamed('/user/update_phone');
+                                await Modular.to.pushNamed('/user/update_phone',
+                                    arguments: user);
                               },
                               child: Text(
                                   user != null && user!.phoneNumber != null
