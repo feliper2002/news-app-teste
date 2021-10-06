@@ -3,13 +3,13 @@ import 'package:news_app/shared/theme/colors.dart';
 
 class CustomButton extends StatelessWidget {
   final String? text;
-  final Function? onPressed;
+  final void Function()? onPressed;
   const CustomButton({Key? key, this.text, this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-      onPressed: () => onPressed,
+      onPressed: onPressed,
       child: Text(
         text!,
         style: const TextStyle(
