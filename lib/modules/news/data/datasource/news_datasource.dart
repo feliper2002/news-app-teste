@@ -8,8 +8,9 @@ abstract class NewsDatasource {
 class NewsDatasourceNews implements NewsDatasource {
   @override
   Stream<QuerySnapshot<Map<String, dynamic>>> listNews() {
-    final datesCollection =
-        FirebaseFirestore.instance.collection('news').orderBy('date');
+    final datesCollection = FirebaseFirestore.instance
+        .collection('news')
+        .orderBy('date', descending: true);
 
     try {
       return datesCollection.snapshots();
