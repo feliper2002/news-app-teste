@@ -42,7 +42,7 @@ class AuthPage extends StatelessWidget {
               const SizedBox(height: 20),
               CustomButton(
                 onPressed: () async {
-                  await Modular.to.pushNamed('/news');
+                  await Modular.to.popAndPushNamed('/news');
                 },
                 text: 'Login',
               ),
@@ -51,9 +51,22 @@ class AuthPage extends StatelessWidget {
               const SizedBox(height: 16),
               CustomButton(
                 onPressed: () async {
-                  await Modular.to.pushNamed('/auth/register');
+                  await Modular.to.pushNamed('/register');
                 },
                 text: 'Cadastrar',
+              ),
+              const SizedBox(height: 16),
+              TextButton(
+                onPressed: () async {
+                  await Modular.to.popAndPushNamed('/news');
+                },
+                child: Text(
+                  'Continuar sem autenticação >>>',
+                  style: TextStyle(
+                      color: AppColors.mainColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w900),
+                ),
               ),
             ],
           ),
