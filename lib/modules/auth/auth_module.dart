@@ -4,6 +4,7 @@ import 'package:news_app/modules/auth/data/repositories/auth_repository_impl.dar
 import 'package:news_app/modules/auth/domain/usecases/login.dart';
 import 'package:news_app/modules/auth/domain/usecases/register.dart';
 import 'package:news_app/modules/auth/presenter/controllers/auth_controller.dart';
+import 'package:news_app/modules/auth/presenter/controllers/register_controller.dart';
 
 import 'presenter/auth.page.dart';
 import 'presenter/register.page.dart';
@@ -16,6 +17,7 @@ class AuthModule extends Module {
     Bind((i) => RegisterImpl(i.get())),
     Bind((i) => LoginImpl(i.get())),
     Bind((i) => AuthController(i.get())),
+    Bind((i) => RegisterController(i.get())),
   ];
 
   @override

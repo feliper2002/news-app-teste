@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:news_app/core/error/failure.dart';
 import 'package:news_app/modules/auth/domain/usecases/login.dart';
@@ -95,10 +96,10 @@ abstract class _AuthControllerBase with Store {
     return (validateEmail() == null && validatePassword() == null);
   }
 
-  Future<User> login(String? email, String? password) async {
-    final response = await loginUsecase(email, password);
+  User? usuarioAuth;
 
-    User? usuarioAuth;
+  Future<User> login() async {
+    final response = await loginUsecase(email, password);
 
     response.fold((exception) {
       if (exception is UnprocessableEntityFailure) {
@@ -113,11 +114,12 @@ abstract class _AuthControllerBase with Store {
       } else if (exception is InvalidCredentials) {
         clearAllFields();
       }
-    }, (user) {
+    }, (user) async {
       usuarioAuth = user;
-      print(usuarioAuth!.uid);
+      if (usuarioAuth != null) {
+        await Modular.to.popAndPushNamed('/news');
+      }
     });
-
     return usuarioAuth!;
   }
 }

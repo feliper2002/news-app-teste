@@ -55,9 +55,7 @@ class AuthPage extends StatelessWidget {
                 return CustomButton(
                   enabled: controller.validateLoginFields()!,
                   onPressed: () async {
-                    await controller.login(
-                        controller.email, controller.password);
-                    await Modular.to.popAndPushNamed('/news');
+                    await controller.login();
                   },
                   text: 'Login',
                 );
@@ -76,6 +74,7 @@ class AuthPage extends StatelessWidget {
               const SizedBox(height: 16),
               TextButton(
                 onPressed: () async {
+                  controller.clearAllFields();
                   await Modular.to.popAndPushNamed('/news');
                 },
                 child: Text(
