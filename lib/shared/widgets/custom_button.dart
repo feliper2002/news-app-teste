@@ -5,7 +5,7 @@ class CustomButton extends StatelessWidget {
   final String? text;
   final void Function()? onPressed;
   final bool? enabled;
-  const CustomButton({Key? key, this.text, this.onPressed, this.enabled})
+  const CustomButton({Key? key, this.text, this.onPressed, this.enabled = true})
       : super(key: key);
 
   @override
