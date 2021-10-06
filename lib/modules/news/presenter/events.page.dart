@@ -40,8 +40,8 @@ class EventsPage extends StatelessWidget {
             const SizedBox(height: 18),
             CustomButton(
               text: 'Fazer Login',
-              onPressed: () async {
-                await Modular.to.popAndPushNamed('/');
+              onPressed: () {
+                Modular.to.navigate('/');
               },
             ),
           ],
