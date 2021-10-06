@@ -65,6 +65,7 @@ class NewsContainer extends StatelessWidget {
           ),
           Container(
             height: size.height * .083,
+            padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Text(body!),
           ),
           const Spacer(),
