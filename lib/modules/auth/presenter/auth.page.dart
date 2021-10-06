@@ -32,6 +32,9 @@ class AuthPage extends StatelessWidget {
               Observer(builder: (_) {
                 return CustomTextField(
                   labelText: 'E-mail',
+                  errorText: controller.changedEmail!
+                      ? controller.validateEmail()
+                      : null,
                   prefixIcon: const Icon(Icons.mail),
                   onChanged: controller.setEmail,
                 );
@@ -40,6 +43,9 @@ class AuthPage extends StatelessWidget {
               Observer(builder: (_) {
                 return CustomTextField(
                   labelText: 'Senha',
+                  errorText: controller.changedPassword!
+                      ? controller.validatePassword()
+                      : null,
                   prefixIcon: const Icon(Icons.password),
                   onChanged: controller.setPassword,
                 );
@@ -47,7 +53,7 @@ class AuthPage extends StatelessWidget {
               const SizedBox(height: 20),
               Observer(builder: (_) {
                 return CustomButton(
-                  enabled: true,
+                  enabled: controller.validateLoginFields()!,
                   onPressed: () async {
                     await controller.login(
                         controller.email, controller.password);
@@ -62,6 +68,7 @@ class AuthPage extends StatelessWidget {
               CustomButton(
                 enabled: true,
                 onPressed: () async {
+                  controller.clearAllFields();
                   await Modular.to.pushNamed('/register');
                 },
                 text: 'Cadastrar',

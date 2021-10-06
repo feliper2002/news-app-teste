@@ -55,6 +55,7 @@ class RegisterPage extends StatelessWidget {
             const SizedBox(height: 30),
             CustomButton(
               text: 'Confirmar',
+              enabled: true,
               onPressed: () async {
                 await Modular.to.pushNamed('/auth_confirm');
               },

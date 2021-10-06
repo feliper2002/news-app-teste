@@ -69,6 +69,32 @@ abstract class _AuthControllerBase with Store {
     passwordConfirmation = value;
   }
 
+  String? validateEmail() {
+    if (email != null) {
+      if (email!.isEmpty) {
+        return 'Este campo é obrigatório!';
+      } else if (!email!.contains('@')) {
+        return 'Este e-mail é inválido!';
+      }
+      return null;
+    }
+    return 'Valor nulo';
+  }
+
+  String? validatePassword() {
+    if (password != null) {
+      if (password!.isEmpty) {
+        return 'Este campo é obrigatório!';
+      }
+      return null;
+    }
+    return 'Valor nulo';
+  }
+
+  bool? validateLoginFields() {
+    return (validateEmail() == null && validatePassword() == null);
+  }
+
   Future<User> login(String? email, String? password) async {
     final response = await loginUsecase(email, password);
 
