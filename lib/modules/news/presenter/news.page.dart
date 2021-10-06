@@ -29,7 +29,7 @@ class NewsPage extends StatelessWidget {
             leading: IconButton(
               icon: Icon(user != null ? Icons.person : Icons.person_outline),
               onPressed: () async {
-                await Modular.to.pushNamed('/user');
+                await Modular.to.pushNamed('/user', arguments: user);
               },
             ),
             centerTitle: true,
