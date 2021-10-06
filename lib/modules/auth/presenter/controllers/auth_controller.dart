@@ -111,7 +111,8 @@ abstract class _AuthControllerBase with Store {
         }
       } else if (exception is ServerFailure) {
         clearAllFields();
-      } else if (exception is InvalidCredentials) {
+      } else if (exception is InvalidAuthCredentials) {
+        print(exception.message);
         clearAllFields();
       }
     }, (user) async {
