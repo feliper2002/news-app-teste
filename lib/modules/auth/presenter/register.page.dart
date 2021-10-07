@@ -42,6 +42,7 @@ class RegisterPage extends StatelessWidget {
                 Observer(builder: (_) {
                   return CustomTextField(
                     labelText: 'Primeiro nome',
+                    initialValue: controller.firstName,
                     onChanged: controller.setFirstName,
                     errorText: controller.changedFirstName!
                         ? controller.validateFirstName()
@@ -52,6 +53,7 @@ class RegisterPage extends StatelessWidget {
                 Observer(builder: (_) {
                   return CustomTextField(
                     labelText: 'Sobrenome',
+                    initialValue: controller.lastName,
                     onChanged: controller.setLastName,
                     errorText: controller.changedLastName!
                         ? controller.validateLastName()
@@ -62,6 +64,7 @@ class RegisterPage extends StatelessWidget {
                 Observer(builder: (_) {
                   return CustomTextField(
                     labelText: 'E-mail',
+                    initialValue: controller.email,
                     onChanged: controller.setEmail,
                     errorText: controller.changedEmail!
                         ? controller.validateEmail()
@@ -72,6 +75,7 @@ class RegisterPage extends StatelessWidget {
                 Observer(builder: (_) {
                   return CustomTextField(
                     labelText: 'Senha',
+                    initialValue: controller.password,
                     obscureText: true,
                     onChanged: controller.setPassword,
                     errorText: controller.changedPassword!
@@ -83,6 +87,7 @@ class RegisterPage extends StatelessWidget {
                 Observer(builder: (_) {
                   return CustomTextField(
                     labelText: 'Confirmação de Senha',
+                    initialValue: controller.passwordConfirmation,
                     obscureText: true,
                     onChanged: controller.setPasswordConfirmation,
                     errorText: controller.changedPasswordConfirmation!
