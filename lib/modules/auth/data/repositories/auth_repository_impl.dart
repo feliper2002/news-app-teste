@@ -30,4 +30,24 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(error);
     }
   }
+
+  @override
+  Future<Either<Failure, void>> deleteAccont() async {
+    try {
+      final response = await datasource.deleteAccount();
+      return Right(response);
+    } on Failure catch (error) {
+      return Left(error);
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> signOut() async {
+    try {
+      final response = await datasource.signOut();
+      return Right(response);
+    } on Failure catch (error) {
+      return Left(error);
+    }
+  }
 }

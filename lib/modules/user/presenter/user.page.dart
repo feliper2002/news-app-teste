@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:news_app/modules/auth/presenter/controllers/auth_controller.dart';
 import 'package:news_app/modules/user/controller/user_controller.dart';
 import 'package:news_app/shared/theme/colors.dart';
 import 'package:news_app/shared/widgets/custom_button.dart';
@@ -25,6 +27,7 @@ class UserPage extends StatelessWidget {
   }
 
   final controller = Modular.get<UserController>();
+  final auth = Modular.get<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -162,33 +165,38 @@ class UserPage extends StatelessWidget {
                 children: [
                   CustomButton(
                     text: 'Sair da conta',
-                    onPressed: () {
-                      Modular.to.navigate('/');
+                    onPressed: () async {
+                      await auth.signout();
                     },
                   ),
                   Container(
                     margin: const EdgeInsets.only(bottom: 20, top: 6),
                     width: 155,
-                    child: OutlinedButton(
-                      onPressed: () {},
-                      child: Row(
-                        children: const [
-                          Icon(Icons.delete, color: Colors.white),
-                          SizedBox(width: 6),
-                          Text(
-                            'Deletar conta',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 15,
+                    child: Observer(builder: (_) {
+                      return OutlinedButton(
+                        onPressed: () async {
+                          await auth.deleteAccont();
+                        },
+                        child: Row(
+                          children: const [
+                            Icon(Icons.delete, color: Colors.white),
+                            SizedBox(width: 6),
+                            Text(
+                              'Deletar conta',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 15,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.red),
-                      ),
-                    ),
+                          ],
+                        ),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.red),
+                        ),
+                      );
+                    }),
                   ),
                 ],
               ),
