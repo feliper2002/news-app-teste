@@ -6,6 +6,8 @@ abstract class AuthDatasource {
   Future<User> register(String? firstName, String? lastName, String? email,
       String? password, String? passwordConfirmation);
   Future<User> login(String? email, String? password);
+  Future<void> signOut();
+  Future<void> deleteAccount();
 }
 
 class AuthDatasourceNews implements AuthDatasource {
@@ -41,6 +43,35 @@ class AuthDatasourceNews implements AuthDatasource {
     } catch (e) {
       throw ServerFailure(
           'Erro no servidor. Não foi possível efetuar o login do usuário.');
+    }
+  }
+
+  @override
+  Future<void> deleteAccount() async {
+    final _auth = FirebaseAuth.instance;
+
+    try {
+      final usuario = _auth.currentUser;
+      await usuario!.delete();
+    } on FirebaseAuthException catch (error) {
+      throw InvalidAuthCredentials(error.message, error.code);
+    } catch (e) {
+      throw ServerFailure(
+          'Erro no servidor. Não foi possível deletar o usuário.');
+    }
+  }
+
+  @override
+  Future<void> signOut() async {
+    final _auth = FirebaseAuth.instance;
+
+    try {
+      await _auth.signOut();
+    } on FirebaseAuthException catch (error) {
+      throw InvalidAuthCredentials(error.message, error.code);
+    } catch (e) {
+      throw ServerFailure(
+          'Erro no servidor. Não foi possível deslogar o usuário.');
     }
   }
 }
