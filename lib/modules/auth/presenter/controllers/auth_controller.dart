@@ -2,15 +2,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:news_app/core/error/failure.dart';
+import 'package:news_app/modules/auth/domain/usecases/delete_account.dart';
 import 'package:news_app/modules/auth/domain/usecases/login.dart';
+import 'package:news_app/modules/auth/domain/usecases/signout.dart';
 part 'auth_controller.g.dart';
 
 class AuthController = _AuthControllerBase with _$AuthController;
 
 abstract class _AuthControllerBase with Store {
-  final Login loginUsecase;
+  final Login _loginUsecase;
+  final Signout _signoutUsecase;
+  final DeleteAccont _deleteAccontUsecase;
 
-  _AuthControllerBase(this.loginUsecase);
+  _AuthControllerBase(
+      this._loginUsecase, this._signoutUsecase, this._deleteAccontUsecase);
 
   @observable
   String? email;
@@ -99,7 +104,7 @@ abstract class _AuthControllerBase with Store {
   User? usuarioAuth;
 
   Future<User> login() async {
-    final response = await loginUsecase(email, password);
+    final response = await _loginUsecase(email, password);
 
     response.fold((exception) {
       if (exception is UnprocessableEntityFailure) {
@@ -122,5 +127,43 @@ abstract class _AuthControllerBase with Store {
       }
     });
     return usuarioAuth!;
+  }
+
+  Future<void> signout() async {
+    final response = await _signoutUsecase();
+
+    response.fold((exception) {
+      if (exception is UnprocessableEntityFailure) {
+        if (exception.errors.containsKey('error')) {
+          print(exception.message);
+        }
+      } else if (exception is ServerFailure) {
+        clearAllFields();
+      } else if (exception is InvalidAuthCredentials) {
+        print(exception.message);
+        clearAllFields();
+      }
+    }, (signedout) {
+      Modular.to.navigate('/');
+    });
+  }
+
+  Future<void> deleteAccont() async {
+    final response = await _deleteAccontUsecase();
+
+    response.fold((exception) {
+      if (exception is UnprocessableEntityFailure) {
+        if (exception.errors.containsKey('error')) {
+          print(exception.message);
+        }
+      } else if (exception is ServerFailure) {
+        clearAllFields();
+      } else if (exception is InvalidAuthCredentials) {
+        print(exception.message);
+        clearAllFields();
+      }
+    }, (deleted) {
+      Modular.to.navigate('/');
+    });
   }
 }

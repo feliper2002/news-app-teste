@@ -204,7 +204,7 @@ abstract class _RegisterControllerBase with Store {
     }, (user) async {
       usuarioAuth = user;
       if (usuarioAuth != null) {
-        await Modular.to.pushNamedAndRemoveUntil('/', ModalRoute.withName('/'));
+        Modular.to.navigate('/');
       }
     });
     return usuarioAuth!;

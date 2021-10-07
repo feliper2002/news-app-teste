@@ -6,6 +6,8 @@ import 'package:news_app/modules/auth/domain/usecases/register.dart';
 import 'package:news_app/modules/auth/presenter/controllers/auth_controller.dart';
 import 'package:news_app/modules/auth/presenter/controllers/register_controller.dart';
 
+import 'domain/usecases/delete_account.dart';
+import 'domain/usecases/signout.dart';
 import 'presenter/auth.page.dart';
 import 'presenter/register.page.dart';
 
@@ -16,8 +18,10 @@ class AuthModule extends Module {
     Bind((i) => AuthRepositoryImpl(i.get())),
     Bind((i) => RegisterImpl(i.get())),
     Bind((i) => LoginImpl(i.get())),
-    Bind((i) => AuthController(i.get())),
+    Bind((i) => AuthController(i.get(), i.get(), i.get())),
     Bind((i) => RegisterController(i.get())),
+    Bind((i) => DeleteAccontImpl(i.get())),
+    Bind((i) => SignoutImpl(i.get())),
   ];
 
   @override
