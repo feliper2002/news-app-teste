@@ -5,7 +5,8 @@ import 'package:news_app/modules/auth/domain/repositories/auth_repository.dart';
 import 'package:news_app/shared/classes/error_message.dart';
 
 abstract class Register {
-  Future<Either<Failure, User>> call(String? email, String? password);
+  Future<Either<Failure, User>> call(String? firstName, String? lastName,
+      String? email, String? password, String? passwordConfirmation);
 }
 
 class RegisterImpl implements Register {
@@ -14,8 +15,39 @@ class RegisterImpl implements Register {
   RegisterImpl(this.repository);
 
   @override
-  Future<Either<Failure, User>> call(String? email, String? password) async {
+  Future<Either<Failure, User>> call(String? firstName, String? lastName,
+      String? email, String? password, String? passwordConfirmation) async {
     Map<String, dynamic> errors = {};
+
+    if (firstName!.isEmpty) {
+      errors.putIfAbsent(
+          'first-name', () => 'O campo `Primeiro Nome` é obrigatório!');
+    }
+
+    if (lastName!.isEmpty) {
+      errors.putIfAbsent(
+          'last-name', () => 'O campo `Sobrenome` é obrigatório!');
+    }
+
+    if (email!.isEmpty) {
+      errors.putIfAbsent('email', () => 'O campo de e-mail é obrigatório!');
+    } else if (!email.contains('@')) {
+      errors.putIfAbsent('email', () => 'Este endereço de e-mail é inválido!');
+    }
+
+    if (password!.isEmpty) {
+      errors.putIfAbsent('password', () => 'O campo de senha é obrigatório!');
+    }
+
+    if (passwordConfirmation!.isEmpty) {
+      errors.putIfAbsent('passwordConfirmation',
+          () => 'O campo de confirmação de senha é obrigatório!');
+    } else if (passwordConfirmation.compareTo(password) != 0) {
+      errors.putIfAbsent(
+          'passwordConfirmation',
+          () =>
+              'O campo de confirmação de senha deve ser igual ao campo de senha!');
+    }
 
     if (errors.entries.isNotEmpty) {
       return Left(
@@ -26,6 +58,7 @@ class RegisterImpl implements Register {
       );
     }
 
-    return await repository.register(email, password);
+    return await repository.register(
+        firstName, lastName, email, password, passwordConfirmation);
   }
 }

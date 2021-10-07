@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 abstract class Failure implements Exception {}
 
 class ServerFailure extends Failure {
@@ -10,6 +12,15 @@ class InvalidCredentials extends Failure {
   final String? message;
 
   InvalidCredentials([this.message]);
+}
+
+class InvalidAuthCredentials extends Failure {
+  final String? message;
+  final String? code;
+
+  InvalidAuthCredentials([this.message, this.code]) {
+    throw FirebaseAuthException(message: message, code: code!);
+  }
 }
 
 class InvalidInputFailure extends Failure {
