@@ -125,6 +125,7 @@ abstract class _AuthControllerBase with Store {
       if (usuarioAuth != null) {
         await Modular.to.popAndPushNamed('/news', arguments: usuarioAuth);
       }
+      clearAllFields();
     });
     return usuarioAuth!;
   }

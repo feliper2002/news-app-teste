@@ -32,6 +32,7 @@ class AuthPage extends StatelessWidget {
               Observer(builder: (_) {
                 return CustomTextField(
                   labelText: 'E-mail',
+                  initialValue: controller.email,
                   errorText: controller.changedEmail!
                       ? controller.validateEmail()
                       : null,
@@ -43,6 +44,7 @@ class AuthPage extends StatelessWidget {
               Observer(builder: (_) {
                 return CustomTextField(
                   labelText: 'Senha',
+                  initialValue: controller.password,
                   obscureText: true,
                   errorText: controller.changedPassword!
                       ? controller.validatePassword()

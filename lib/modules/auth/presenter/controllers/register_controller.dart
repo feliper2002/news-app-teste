@@ -205,6 +205,7 @@ abstract class _RegisterControllerBase with Store {
       usuarioAuth = user;
       if (usuarioAuth != null) {
         Modular.to.navigate('/');
+        clearAllFields();
       }
     });
     return usuarioAuth!;
