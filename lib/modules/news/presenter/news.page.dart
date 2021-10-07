@@ -18,7 +18,7 @@ class NewsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        await Modular.to.popAndPushNamed('/');
+        Modular.to.navigate('/');
         return true;
       },
       child: DefaultTabController(
