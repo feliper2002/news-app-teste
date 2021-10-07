@@ -31,6 +31,10 @@ abstract class _EventControllerBase with Store {
   }
 
   void updateEvent(bool? attend, String? eventID) {
+    /// Will [update] the event by getting the respective [eventID]
+    ///
+    /// The data [attend] will be sent to Firestore Database and the method [set] of Firestore instance will merge the new data state with actual collection values
+    ///
     final response = _updateEventUsecase(attend, eventID);
 
     response!.fold((exception) {
