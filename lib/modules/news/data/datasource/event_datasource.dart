@@ -9,9 +9,8 @@ abstract class EventDatasource {
 class EventDatasourceNews implements EventDatasource {
   @override
   Stream<QuerySnapshot<Map<String, dynamic>>> listEvents() {
-    final datesCollection = FirebaseFirestore.instance
-        .collection('event')
-        .orderBy('date', descending: true);
+    final datesCollection =
+        FirebaseFirestore.instance.collection('event').orderBy('date');
 
     try {
       return datesCollection.snapshots();
@@ -29,7 +28,9 @@ class EventDatasourceNews implements EventDatasource {
       eventCollection.where('id', isEqualTo: id).get().then((collection) {
         // ignore: avoid_function_literals_in_foreach_calls
         collection.docs.forEach((event) {
-          eventCollection.doc(event.id).set({'attend': attend});
+          eventCollection
+              .doc(event.id)
+              .set({'attend': attend}, SetOptions(merge: true));
         });
       });
     } catch (e) {

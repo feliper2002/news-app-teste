@@ -67,6 +67,7 @@ class EventsPage extends StatelessWidget {
                   date: docs['date'],
                   attend: docs['attend'],
                   local: docs['local'],
+                  id: docs['id'],
                 );
               },
             );
