@@ -1,12 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:news_app/modules/news/presenter/controllers/event_controller.dart';
+import 'package:news_app/modules/news/presenter/widgets/event_card.dart';
 import 'package:news_app/shared/theme/colors.dart';
 import 'package:news_app/shared/widgets/custom_button.dart';
 
 class EventsPage extends StatelessWidget {
   final User? user;
-  const EventsPage({Key? key, this.user}) : super(key: key);
+  EventsPage({Key? key, this.user}) : super(key: key);
+
+  final controller = Modular.get<EventController>();
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +53,28 @@ class EventsPage extends StatelessWidget {
         ),
       );
     }
-    return Container();
+    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+        stream: controller.listEvents(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (_, index) {
+                final docs = snapshot.data!.docs[index].data();
+                return EventCard(
+                  title: docs['title'],
+                  date: docs['date'],
+                  attend: docs['attend'],
+                  local: docs['local'],
+                );
+              },
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(color: AppColors.mainColor),
+            );
+          }
+        });
   }
 }
