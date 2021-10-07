@@ -29,4 +29,16 @@ abstract class _EventControllerBase with Store {
 
     return eventList;
   }
+
+  void updateEvent(bool? attend, String? eventID) {
+    final response = _updateEventUsecase(attend, eventID);
+
+    response!.fold((exception) {
+      if (exception is UnprocessableEntityFailure) {
+        if (exception.errors.containsKey('error')) {}
+      } else if (exception is ServerFailure) {}
+    }, (updated) {
+      print('Atualizou evento $eventID');
+    });
+  }
 }
