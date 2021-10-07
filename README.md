@@ -1,16 +1,24 @@
-# news_app
+# News APP
 
-A new Flutter project.
+Projeto de aplicativo de notícias feito com Flutter.
 
-## Getting Started
+## Como rodar o aplicativo
 
-This project is a starting point for a Flutter application.
+Caso já tenha o Git instalado em sua máquina, crie um diretório para guardar o projeto, abra o terminal e execute os seguintes comandos:
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+git clone https://github.com/feliper2002/news-app-teste.git
+cd news-app-teste/
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### PARA BUILDAR/RODAR O APLICATIVO NO EMULADOR
+flutter run
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### PARA GERAR O ARQUIVO APK (ANDROID)
+flutter build apk
+```
+
+Em caso de não possuir o Flutter instalado em sua máquina, seguir tutorial do seu respectivo Sistema Operacional:
+
+- [Instalar/Configurar Flutter - Windows](https://flutter.dev/docs/get-started/install/windows)
+- [Instalar/Configurar Flutter - MacOS](https://flutter.dev/docs/get-started/install/macos)
+- [Instalar/Configurar Flutter - Linux](https://flutter.dev/docs/get-started/install/linux)
